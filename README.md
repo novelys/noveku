@@ -47,4 +47,4 @@ Commands that will be soon supported : `rake`, commands for dumping mongolab dat
 
 ## Changelog
 
-* `0.1`: First version. Available commands : `console`, `restart`, `tail`
+* `0.1`: First version. Available commands : `console`, `migrate`, `tail`
