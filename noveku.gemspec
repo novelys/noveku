@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name                      = "noveku"
   s.version                   = Noveku::VERSION
   s.platform                  = Gem::Platform::RUBY
-  s.authors                   = ["Novelys"]
+  s.authors                   = ["Novelys", "Kevin Soltysiak"]
   s.email                     = ["contact@novelys.com"]
   s.homepage                  = "http://github.com/novelys/noveku"
   s.summary                   = "Heroku shorcuts for commonly used commands at novelys"
