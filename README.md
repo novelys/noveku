@@ -5,7 +5,7 @@ This gem was inspired by [a collection of thoughtbot aliases](https://github.com
 
 ## Prerequisites
 
-This gem depends on no other gems. However :
+Ruby 1.9+ only. This gem depends on no other gems. However :
 
 * the presence of the command `heroku` (either via the gem, or the toolbelt) is assumed;
 * the `hrs` tool assumes there is a heroku git remote named `staging`;
