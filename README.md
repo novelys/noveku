@@ -33,7 +33,7 @@ Supported commands and their equivalent :
 * `tail`: `heroku logs --tail --remote ENV`
 
 When giving a command that is not specifically supported, it will be passed to `heroku` : `heroku ARGS --remote ENV`.  
-This makes several other commands available, such as `restart`, `releases`, ...
+This makes several other commands available, such as `restart`, `releases`, `ps`, `open`...
 
 ## Advanced commands
 
