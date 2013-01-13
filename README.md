@@ -9,7 +9,7 @@ Ruby 1.9+ only. This gem depends on no other gems. However :
 
 * the presence of the command `heroku` (either via the gem, or the toolbelt) is assumed;
 * the `hrs` tool assumes there is a heroku git remote named `staging`;
-* the `hrp` tool assumes there is a heroku git remove named `production`.
+* the `hrp` tool assumes there is a heroku git remote named `production`.
 
 ## Installation
 
@@ -41,7 +41,7 @@ This makes several other commands available, such as `restart`, `releases`, `ps`
 * `mongolab_dump`: Dumps the mongo database. Look in the config keys of `ENV` to find `MONGOLAB_URI`.
 * `mongohq_dump`: Dumps the mongo database. Look in the config keys of `ENV` to find `MONGOHQ_URL`.
 
-Those commands puts the dump in the `dump` dir, relatively to where you executed it.
+Those commands put the dump in the `dump` dir, relatively to where you executed it.
 
 Since the restoration of the database does not involve any interaction with heroku, it is out of the scope of this gem at the moment. However, it is pretty easy to integrate the commands above and the restoration in a rake task.
 
