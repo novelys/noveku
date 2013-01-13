@@ -18,6 +18,12 @@ module Noveku
       send "#{@command}_cmd"
     end
 
+    # Execute a rake task
+    def rake_cmd
+      task = @commands[1..-1].join(' ')
+      system "heroku run rake #{task} --remote #{@environment}"
+    end
+
     # Open the console
     def console_cmd
       system "heroku run console --remote #{@environment}"

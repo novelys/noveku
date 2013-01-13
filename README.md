@@ -27,6 +27,7 @@ This gem exposes two executables :
 
 Supported commands and their equivalent : 
 
+* `rake` : `heroku run rake ARGS --remove ENV`
 * `console`: `heroku run console --remote ENV`
 * `migrate`: `heroku run rake db:migrate --remote ENV && heroku restart --remote ENV`
 * `tail`: `heroku logs --tail --remote ENV`
@@ -36,7 +37,7 @@ This makes several other commands available, such as `restart`, `releases`, ...
 
 ## What's next
 
-Commands that will be soon supported : `rake`, commands for dumping mongolab database.
+Commands that will be soon supported : commands for dumping mongolab database.
 
 ## Contributions
 
@@ -47,4 +48,5 @@ Commands that will be soon supported : `rake`, commands for dumping mongolab dat
 
 ## Changelog
 
+* `0.2`: Added rake command
 * `0.1`: First version. Available commands : `console`, `migrate`, `tail`
