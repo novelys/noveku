@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'noveku'
+
+production = Noveku::Production.new(ARGV)
+production.run

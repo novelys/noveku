@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'noveku'
+
+staging = Noveku::Staging.new(ARGV)
+staging.run
