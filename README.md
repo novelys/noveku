@@ -31,7 +31,7 @@ Supported commands and their equivalent :
 * `migrate`: `heroku run rake db:migrate --remote ENV && heroku restart --remote ENV`
 * `tail`: `heroku logs --tail --remote ENV`
 
-When giving a command that is not specifically supported, it will be passed to `heroku` : `heroku ARGS --remote ENV".  
+When giving a command that is not specifically supported, it will be passed to `heroku` : `heroku ARGS --remote ENV`.  
 This makes several other commands available, such as `restart`, `releases`, ...
 
 ## What's next
