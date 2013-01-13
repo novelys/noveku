@@ -28,12 +28,15 @@ This gem exposes two executables :
 Supported commands and their equivalent : 
 
 * `console`: `heroku run console --remote ENV`
-* `restart`: `heroku restart --remote ENV`
+* `migrate`: `heroku run rake db:migrate --remote ENV && heroku restart --remote ENV`
 * `tail`: `heroku logs --tail --remote ENV`
+
+When giving a command that is not specifically supported, it will be passed to `heroku` : `heroku ARGS --remote ENV".  
+This makes several other commands available, such as `restart`, `releases`, ...
 
 ## What's next
 
-Commands that will be soon supported : `releases`, `maintenance`, commands for dumping mongolab database.
+Commands that will be soon supported : `rake`, commands for dumping mongolab database.
 
 ## Contributions
 
