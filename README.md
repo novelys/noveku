@@ -23,7 +23,7 @@ This gem exposes two executables :
 * `hrs` (heroku staging) : will execute the given commands for the `staging` remote
 * `hrp` (heroku production) : will execute the given commands for the `production` remote
 
-## Commands
+## Heroku commands
 
 Supported commands and their equivalent : 
 
@@ -35,9 +35,15 @@ Supported commands and their equivalent :
 When giving a command that is not specifically supported, it will be passed to `heroku` : `heroku ARGS --remote ENV`.  
 This makes several other commands available, such as `restart`, `releases`, ...
 
-## What's next
+## Advanced commands
 
-Commands that will be soon supported : commands for dumping mongolab database.
+* `mongodump`: Dumps the mongo database. Shortcut for both `mongolab_dump` and `mongohq_dump`: tries mongolab first, then mongohq.
+* `mongolab_dump`: Dumps the mongo database. Look in the config keys of `ENV` to find `MONGOLAB_URI`.
+* `mongohq_dump`: Dumps the mongo database. Look in the config keys of `ENV` to find `MONGOHQ_URL`.
+
+Those commands puts the dump in the `dump` dir, relatively to where you executed it.
+
+Since the restoration of the database does not involve any interaction with heroku, it is out of the scope of this gem at the moment. However, it is pretty easy to integrate the commands above and the restoration in a rake task.
 
 ## Contributions
 
@@ -48,5 +54,6 @@ Commands that will be soon supported : commands for dumping mongolab database.
 
 ## Changelog
 
-* `0.2`: Added rake command
-* `0.1`: First version. Available commands : `console`, `migrate`, `tail`
+* `0.3`: Added `mongodump`, `mongolab_dump`, `mongohq_dump`.
+* `0.2`: Added `rake` command.
+* `0.1`: First version. Available commands : `console`, `migrate`, `tail`.
