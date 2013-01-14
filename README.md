@@ -5,11 +5,7 @@ This gem was inspired by [a collection of thoughtbot aliases](https://github.com
 
 ## Prerequisites
 
-This gem depends on no other gems. However :
-
-* the presence of the command `heroku` (either via the gem, or the toolbelt) is assumed;
-* the `hrs` tool assumes there is a heroku git remote named `staging`;
-* the `hrp` tool assumes there is a heroku git remove named `production`.
+This gem depends on novelys/gomon. However, the presence of the command `heroku` (either via the gem, or the toolbelt) is assumed
 
 ## Installation
 
@@ -18,10 +14,14 @@ you should install it globally, not via bundler and your project's Gemfile.
 
 ## Usage
 
-This gem exposes two executables : 
+`noveku [ENV] commands...`: will execute the given commands for the `staging` remote.
 
-* `hrs` (heroku staging) : will execute the given commands for the `staging` remote
-* `hrp` (heroku production) : will execute the given commands for the `production` remote
+We strongly suggest adding shell aliases for convenience :
+
+```shell
+alias nvp='noveku production'
+alias nvs='noveku staging'
+```
 
 ## Heroku commands
 
@@ -43,7 +43,7 @@ This makes several other commands available, such as `restart`, `releases`, ...
 
 Those commands puts the dump in the `dump` dir, relatively to where you executed it.
 
-Since the restoration of the database does not involve any interaction with heroku, it is out of the scope of this gem at the moment. However, it is pretty easy to integrate the commands above and the restoration in a rake task.
+Since the restoration of the database does not involve any interaction with heroku, it is out of the scope of this gem at the moment. However, this gem depends on novelys/gomon, which includes a class wrapping mongodump/restore, making it very easy to use in a rake task.
 
 ## Contributions
 
@@ -54,6 +54,7 @@ Since the restoration of the database does not involve any interaction with hero
 
 ## Changelog
 
+* `0.4`: Require `gomon` for mongodump, changed executable names, internal refactoring.
 * `0.3`: Added `mongodump`, `mongolab_dump`, `mongohq_dump`.
 * `0.2`: Added `rake` command.
 * `0.1`: First version. Available commands : `console`, `migrate`, `tail`.

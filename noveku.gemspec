@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = s.name
   s.required_rubygems_version = ">= 1.3.6"
   s.files                     = `git ls-files`.split("\n")
-  s.executables               << 'hrp'
-  s.executables               << 'hrs'
+  s.executables               << 'noveku'
   s.require_path              = 'lib'
+  s.add_dependency('gomon')
 end

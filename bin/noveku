@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'noveku'
+
+Noveku::Core.new(*ARGV).call
