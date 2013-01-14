@@ -22,11 +22,13 @@ module Noveku
     # Advanced Features
     include Mongo
 
+    attr_reader :environment, :command, :arguments
+
     # Keep track of the given commands
     def initialize(*arguments)
       @environment = arguments.shift
-      @commands    = arguments
-      @command     = @commands.first
+      @command     = arguments.shift
+      @arguments    = arguments
     end
 
     # Run the commands
@@ -48,7 +50,7 @@ module Noveku
       return nil unless commands
 
       # Template proc
-      template = ->(command) { "heroku #{command} --remote '#{@environment}'" }
+      template = ->(command) { "heroku #{command} --remote '#{environment}'" }
 
       # Map commands to template & chain
       commands.map(&template).join(' && ')
