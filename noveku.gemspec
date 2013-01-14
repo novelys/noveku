@@ -16,4 +16,6 @@ Gem::Specification.new do |s|
   s.executables               << 'noveku'
   s.require_path              = 'lib'
   s.add_dependency('gomon')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('rspec')
 end
