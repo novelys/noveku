@@ -14,7 +14,7 @@ you should install it globally, not via bundler and your project's Gemfile.
 
 ## Usage
 
-`noveku [ENV] commands...`: will execute the given commands for the `staging` remote.
+`noveku ENV commands...`: will execute the given commands for the `ENV` remote.
 
 We strongly suggest adding shell aliases for convenience :
 
@@ -45,6 +45,10 @@ Those commands put the dump in the `dump` dir, relatively to where you executed 
 
 Since the restoration of the database does not involve any interaction with heroku, it is out of the scope of this gem at the moment. However, this gem depends on novelys/gomon, which includes a class wrapping mongodump/restore, making it very easy to use in a rake task.
 
+## What's next
+
+I plan on adding a command allowing you to create a heroku app, setup your addons, update your git config, create a local branch if needed.. all that in one step. We're still thinking about what the command api will look like. This will probably be the last feature before tagging 1.0.0.
+
 ## Contributions
 
 1. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug. In the first case, please include a use-case.
@@ -54,6 +58,7 @@ Since the restoration of the database does not involve any interaction with hero
 
 ## Changelog
 
+* `0.5`: Test coverage, check the presence of environment & that it matches a heroku app, that pwd is a heroku app, the presence of mongohq/lab uri.
 * `0.4`: Require `gomon` for mongodump, changed executable names, internal refactoring.
 * `0.3`: Added `mongodump`, `mongolab_dump`, `mongohq_dump`.
 * `0.2`: Added `rake` command.
