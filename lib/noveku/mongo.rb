@@ -2,8 +2,6 @@ require 'gomon/dump'
 
 module Noveku
   module Mongo
-    class NoUriSupplied < StandardError; end
-
     # Heroku config keys name
     MONGOLAB_KEY = 'MONGOLAB_URI'
     MONGOHQ_KEY = 'MONGOHQ_URL'

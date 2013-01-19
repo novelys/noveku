@@ -4,7 +4,7 @@ require 'noveku/core'
 describe 'Core' do
   context 'environment' do
     it 'absence should raise an exception' do
-      expect(-> { Noveku::Core.new }).to raise_error(Noveku::NotAValidEnvironment)
+      expect(-> { Noveku::Core.new }).to raise_error(SystemExit)
     end
   end
 
