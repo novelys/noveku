@@ -2,6 +2,8 @@ require 'gomon/dump'
 
 module Noveku
   module Mongo
+    class NoUriSupplied < StandardError; end
+
     # Heroku config keys name
     MONGOLAB_KEY = 'MONGOLAB_URI'
     MONGOHQ_KEY = 'MONGOHQ_URL'
@@ -25,6 +27,8 @@ module Noveku
 
     # Get a dump of the database
     def mongo_dump(uri)
+      raise NoUriSupplied unless uri
+
       Gomon::Dump.new(uri: uri).call
     end
   end
