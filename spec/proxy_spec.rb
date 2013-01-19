@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'noveku/core'
 
 describe 'Proxy' do
-  subject { Noveku::Core.new 'staging', 'ps', 'web' }
+  subject { Noveku::Core.new 'noveku-safe-env', 'ps', 'web' }
 
   it 'must have an executable command string' do
     expect(subject.proxy_cmd_str).to eq 'ps web'

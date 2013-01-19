@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'noveku/core'
 
 describe 'Config' do
-  subject { Noveku::Core.new 'staging' }
+  subject { Noveku::Core.new 'noveku-safe-env' }
 
   it 'must have an executable command string' do
     key = (0...4).map{65.+(rand(26)).chr}.join('')
