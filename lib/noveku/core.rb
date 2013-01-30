@@ -1,12 +1,14 @@
 require 'noveku/config'
-require 'noveku/exceptions'
-require 'noveku/rake'
 require 'noveku/console'
+require 'noveku/deploy'
+require 'noveku/exceptions'
 require 'noveku/migrate'
+require 'noveku/mongo'
 require 'noveku/options'
 require 'noveku/proxy'
+require 'noveku/push'
+require 'noveku/rake'
 require 'noveku/tail'
-require 'noveku/mongo'
 
 module Noveku
   # Common functionnality
@@ -15,13 +17,15 @@ module Noveku
     include Exceptions
     include Options
     # Aliases
-    include Rake
     include Console
     include Migrate
     include Proxy
+    include Rake
     include Tail
     # Advanced Features
+    include Deploy
     include Mongo
+    include Push
 
     attr_reader :environment, :command, :arguments
 
