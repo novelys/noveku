@@ -2,7 +2,7 @@ module Noveku
   module Proxy
     # String to execute when proxying commands
     def proxy_cmd_str
-      ([@command] + @arguments).join(' ')
+      ([@command] + proxied_arguments).join(' ')
     end
 
     # If this is a command with no specific support, pass the raw arguments to `heroku` directly

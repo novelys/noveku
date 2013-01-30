@@ -3,6 +3,7 @@ require 'noveku/exceptions'
 require 'noveku/rake'
 require 'noveku/console'
 require 'noveku/migrate'
+require 'noveku/options'
 require 'noveku/proxy'
 require 'noveku/tail'
 require 'noveku/mongo'
@@ -12,6 +13,7 @@ module Noveku
   class Core
     include Config
     include Exceptions
+    include Options
     # Aliases
     include Rake
     include Console
