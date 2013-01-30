@@ -7,7 +7,7 @@ module Noveku
 
     # Open the console
     def migrate_cmd
-      execute *migrate_cmd_args
+      execute_heroku *migrate_cmd_args
     end
   end
 end

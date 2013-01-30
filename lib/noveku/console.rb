@@ -6,7 +6,7 @@ module Noveku
 
     # Open the console
     def console_cmd
-      execute console_cmd_str
+      execute_heroku console_cmd_str
     end
   end
 end

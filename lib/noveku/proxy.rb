@@ -8,7 +8,7 @@ module Noveku
     # If this is a command with no specific support, pass the raw arguments to `heroku` directly
     def method_missing(name, *args, &block)
       if name.to_s.end_with?('_cmd')
-        execute proxy_cmd_str
+        execute_heroku proxy_cmd_str
       else
         super
       end

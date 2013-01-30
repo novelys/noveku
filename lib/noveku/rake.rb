@@ -9,7 +9,7 @@ module Noveku
 
     # Execute a rake task
     def rake_cmd
-      execute rake_cmd_str
+      execute_heroku rake_cmd_str
     end
   end
 end

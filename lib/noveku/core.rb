@@ -44,12 +44,12 @@ module Noveku
     private
 
     # Execute the commands
-    def execute(*commands)
-      system executable_command(*commands)
+    def execute_heroku(*commands)
+      system executable_heroku_command(*commands)
     end
 
     # Build command to execute
-    def executable_command(*commands)
+    def executable_heroku_command(*commands)
       return nil unless commands
 
       # Template proc

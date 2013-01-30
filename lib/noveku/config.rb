@@ -6,7 +6,7 @@ module Noveku
 
     # Returns config value for key
     def config_value_for(key)
-      cmd = executable_command config_value_str(key)
+      cmd = executable_heroku_command config_value_str(key)
       value = `#{cmd}`.strip
       value = nil if value == ''
       value

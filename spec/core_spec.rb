@@ -25,12 +25,12 @@ describe 'Core' do
 
     it 'string to execute should contain given command' do
       str = "heroku run rake stats --remote 'noveku-safe-env'"
-      expect(subject.send(:executable_command, 'run rake stats')).to eq str
+      expect(subject.send(:executable_heroku_command, 'run rake stats')).to eq str
     end
 
     it 'string to execute should chain given command' do
       str = "heroku run rake stats --remote 'noveku-safe-env' && heroku releases --remote 'noveku-safe-env'"
-      expect(subject.send(:executable_command, 'run rake stats', 'releases')).to eq str
+      expect(subject.send(:executable_heroku_command, 'run rake stats', 'releases')).to eq str
     end
   end
 end

@@ -7,7 +7,7 @@ module Noveku
 
     # Tail logs
     def tail_cmd
-      execute tail_cmd_str
+      execute_heroku tail_cmd_str
     end
   end
 end
