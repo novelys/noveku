@@ -14,14 +14,34 @@ you should install it globally, not via bundler and your project's Gemfile.
 
 ## Usage
 
-`noveku ENV commands...`: will execute the given commands for the `ENV` remote.
+This gem is developed with Rails 3+ in mind. However, it should be suited to any project with a notion of "app environment", with different heroku apps for these environments.
 
-We strongly suggest adding shell aliases for convenience :
+`noveku production COMMAND` translate `COMMAND` in the context of the heroku remote `heroku-production`. When pushing/deploying, the local source branche is `production`. Please read the next two paragraphs for more detailed explications.
 
-```shell
-alias nvp='noveku production'
-alias nvs='noveku staging'
-```
+### Conventions
+
+This gem makes a few assumptions about how your branches and remotes are named.
+This is *not* configurable, and that there is no plans to change this.
+
+* `origin` is the main git remote, pointing towards github, bitbucket, or any other server.
+* if you have a branch named `novelys`, the heroku git remote corresponding this branch is assumed to be `heroku-novelys`.
+
+Our git flow at Novelys is pretty straightforward : the branch `master` is the current version of the app; `staging` is the pre-production version; `production` the production one.
+
+This translates to two heroku apps (the name of the apps does not matter), and the remotes named `heroku-staging` and `heroku-master` :
+
+    [remote "heroku-production"]
+      url = git@heroku.com:sampleapp.git
+      fetch = +refs/heads/*:refs/remotes/production/*
+    [remote "heroky-staging"]
+      url = git@heroku.com:sampleapp-preprod.git
+      fetch = +refs/heads/*:refs/remotes/staging/*
+
+### Interface
+
+Considering what is written above :
+
+`noveku ENV COMMAND`: will execute the given `COMMAND` in the context of the `ENV` local branch and `heroku-ENV` heroku git remote.
 
 ## Heroku commands
 
@@ -36,6 +56,20 @@ When giving a command that is not specifically supported, it will be passed to `
 This makes several other commands available, such as `restart`, `releases`, `ps`, `open`...
 
 ## Advanced commands
+
+### Git
+
+Those commands are shortcuts for other git commands.
+
+* `push`: Push your changes in your local branch to the `origin` remote.
+* `deploy`: Push your changes in your local branch to the heroku remote.
+
+They accept the following options:
+
+* `--dry-run`: only prints the git command that is going to be executed, without executing it;
+* `--verbose`: prints the git command that is going to be executed, and then execute it.
+
+### MongoDB
 
 * `mongodump`: Dumps the mongo database. Shortcut for both `mongolab_dump` and `mongohq_dump`: tries mongolab first, then mongohq.
 * `mongolab_dump`: Dumps the mongo database. Look in the config keys of `ENV` to find `MONGOLAB_URI`.
@@ -58,6 +92,7 @@ I plan on adding a command allowing you to create a heroku app, setup your addon
 
 ## Changelog
 
+* `0.6`: Adds `deploy` and `push`; assumes heroku remotes are prefixed with `heroku-`; enhanced README; internal refactoring.
 * `0.5`: Test coverage, check the presence of environment & that it matches a heroku app, that pwd is a heroku app, the presence of mongohq/lab uri.
 * `0.4`: Require `gomon` for mongodump, changed executable names, internal refactoring.
 * `0.3`: Added `mongodump`, `mongolab_dump`, `mongohq_dump`.
