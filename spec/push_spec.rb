@@ -5,6 +5,6 @@ describe 'Push' do
   subject { Noveku::Core.new 'noveku-safe-env', 'push' }
 
   it 'must have an executable command string' do
-    expect(subject.push_cmd_str).to eq 'push origin noveku-safe-env'
+    expect(subject.push_cmd_str).to eq "push origin #{subject.environment}"
   end
 end

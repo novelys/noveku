@@ -21,7 +21,7 @@ module Noveku
     # Check if there is a matching heroku app
     def ensure_heroku_app
       # This env is used for testing
-      return if environment == 'noveku-safe-env'
+      return if @environment == 'noveku-safe-env'
 
       system "heroku releases --remote '#{environment}' >& /dev/null"
 

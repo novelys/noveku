@@ -49,6 +49,19 @@ module Noveku
       send "#{@command}_cmd"
     end
 
+    # Prefix of heroku git remotes
+    def prefix
+      "heroku"
+    end
+
+    # Environment
+    alias :branch :environment
+
+    # Name of heroku remote
+    def remote
+      "#{prefix}-#{environment}"
+    end
+
     private
 
     # Execute the commands

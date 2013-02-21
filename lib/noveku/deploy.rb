@@ -1,7 +1,7 @@
 module Noveku
   module Deploy
     def deploy_cmd_str
-      "push #{environment} #{environment}:master"
+      "push #{remote} #{branch}:master"
     end
 
     # Open the console

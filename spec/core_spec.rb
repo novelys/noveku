@@ -11,8 +11,16 @@ describe 'Core' do
   context 'commands' do
     subject { Noveku::Core.new 'noveku-safe-env', 'rake', 'stats' }
 
+    it 'prefix should be "heroku"' do
+      expect(subject.prefix).to eq 'heroku'
+    end
+
     it 'environment should be the first command' do
-      expect(subject.environment).to eq 'noveku-safe-env'
+      expect(subject.environment).to eq "noveku-safe-env"
+    end
+
+    it 'remote should be the prefixed environment' do
+      expect(subject.remote).to eq "#{subject.prefix}-#{subject.environment}"
     end
 
     it 'main command should be the second command' do
