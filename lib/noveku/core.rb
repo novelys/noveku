@@ -1,3 +1,5 @@
+require 'noveku/cli/git'
+require 'noveku/cli/heroku'
 require 'noveku/config'
 require 'noveku/console'
 require 'noveku/deploy'
@@ -49,48 +51,22 @@ module Noveku
 
     private
 
-    # Only print the command
-    def print_heroku(*commands)
-      puts executable_heroku_command(*commands)
-    end
-
     # Execute the commands
     def execute_heroku(*commands)
-      print_heroku(*commands) if dry_run? || verbose?
-      system(executable_heroku_command(*commands)) unless dry_run?
-    end
+      options = (commands.last.is_a?(Hash) && commands.pop) || {}
+      options = {dry_run: dry_run?, verbose: verbose?}.merge(options)
 
-    # Build command to execute
-    def executable_heroku_command(*commands)
-      return nil unless commands
-
-      # Template proc
-      template = ->(command) { "heroku #{command} --remote '#{environment}'" }
-
-      # Map commands to template & chain
-      commands.map(&template).join(' && ')
-    end
-
-    # Only print the command
-    def print_git(*commands)
-      puts executable_git_command(*commands)
+      h = Noveku::CLI::Heroku.new environment, *commands, options
+      h.()
     end
 
     # Execute the commands
     def execute_git(*commands)
-      print_git(*commands) if dry_run? || verbose?
-      system(executable_git_command(*commands)) unless dry_run?
-    end
+      options = (commands.last.is_a?(Hash) && commands.pop) || {}
+      options = {dry_run: dry_run?, verbose: verbose?}.merge(options)
 
-    # Build command to execute
-    def executable_git_command(*commands)
-      return nil unless commands
-
-      # Template proc
-      template = ->(command) { "git #{command}" }
-
-      # Map commands to template & chain
-      commands.map(&template).join(' && ')
+      g = Noveku::CLI::Git.new *commands, options
+      g.()
     end
   end
 end
