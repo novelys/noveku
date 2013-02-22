@@ -1,13 +1,17 @@
 module Noveku
   module Create
-    # Migrate args
-    def create_cmd_str
-      "apps:create #{environment}"
+    # Create args
+    def create_cmd_args
+      base = ["apps:create #{environment}"]
+
+      proxied_arguments[1..-1].each { |addon| base << addon_cmd_str(addon) }
+
+      base
     end
 
     # Open the console
     def create_cmd
-      execute_heroku create_cmd_str
+      execute_heroku *create_cmd_args
     end
   end
 end

@@ -1,3 +1,4 @@
+require 'noveku/addon'
 require 'noveku/cli/git'
 require 'noveku/cli/heroku'
 require 'noveku/config'
@@ -26,6 +27,7 @@ module Noveku
     include Rake
     include Tail
     # Advanced Features
+    include Addon
     include Create
     include Deploy
     include Mongo
