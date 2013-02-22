@@ -2,6 +2,7 @@ module Noveku
   module CLI
     class Base
       attr_reader :commands
+      attr_accessor :noveku
 
       # Extract commands & options
       def initialize(*commands)
@@ -46,8 +47,8 @@ module Noveku
       end
 
       # The command template, with stream redirection handled
-      def template_command_with_output_cleaned(*args)
-        base = template_command(*args)
+      def template_command_with_output_cleaned(command)
+        base = template_command(noveku, command)
 
         stream = if hide_both?
           '&'

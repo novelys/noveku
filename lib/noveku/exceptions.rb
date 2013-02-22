@@ -13,6 +13,11 @@ module Noveku
   module Exceptions
     private
 
+    # Some commands do not require an environment supplied
+    def environmentless_command?
+      @envless ||= (environment && environment == 'create')
+    end
+
     # Check if environment is present
     def ensure_env
       raise NotAValidEnvironment unless @environment

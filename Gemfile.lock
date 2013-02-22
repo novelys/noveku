@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    noveku (0.5)
+    noveku (0.6)
       gomon
 
 GEM

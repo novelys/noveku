@@ -12,8 +12,8 @@ module Noveku
       end
 
       # Template for commands
-      def template_command(command)
-        "heroku #{command} --remote '#{environment}'"
+      def template_command(noveku, command)
+        "heroku #{command} --remote '#{noveku.remote}'"
       end
     end
   end
