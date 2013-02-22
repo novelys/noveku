@@ -28,7 +28,7 @@ module Noveku
       # This env is used for testing
       return if @environment == 'noveku-safe-env'
 
-      system "heroku releases --remote '#{environment}' >& /dev/null"
+      system "heroku releases --remote '#{remote}' >& /dev/null"
 
       raise NoHerokuApp unless $?.exitstatus == 0
     end

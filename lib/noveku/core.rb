@@ -88,24 +88,34 @@ module Noveku
       end
     end
 
-    # Execute the commands
-    def execute_heroku(*commands)
+    # Retrieve heroku object setup
+    def get_heroku(*commands)
       options = (commands.last.is_a?(Hash) && commands.pop) || {}
       options = {dry_run: dry_run?, verbose: verbose?}.merge(options)
 
       h = Noveku::CLI::Heroku.new environment, *commands, options
       h.noveku = self
-      h.()
+      h
     end
 
     # Execute the commands
-    def execute_git(*commands)
+    def execute_heroku(*commands)
+      get_heroku(*commands).call
+    end
+
+    # Retrieve heroku object setup
+    def get_git(*commands)
       options = (commands.last.is_a?(Hash) && commands.pop) || {}
       options = {dry_run: dry_run?, verbose: verbose?}.merge(options)
 
       g = Noveku::CLI::Git.new *commands, options
       g.noveku = self
-      g.()
+      g
+    end
+
+    # Execute the commands
+    def execute_git(*commands)
+      get_git(*commands).call
     end
   end
 end
