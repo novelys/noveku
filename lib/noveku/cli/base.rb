@@ -43,12 +43,12 @@ module Noveku
 
       # Only print the command
       def print
-        puts command
+        puts ">> Command to be executed: #{command}"
       end
 
       # The command template, with stream redirection handled
       def template_command_with_output_cleaned(command)
-        base = template_command(noveku, command)
+        base = template_command(command)
 
         stream = if hide_both?
           '&'
