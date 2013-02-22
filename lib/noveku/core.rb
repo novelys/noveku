@@ -79,7 +79,13 @@ module Noveku
     def post_arguments_handling
       return unless environmentless_command?
 
-      @environment = arguments[0].dup
+      if command == 'create'
+        @app_name = arguments.shift
+        @environment = arguments.shift
+
+        raise ArgumentError, 'create expects an app name: noveku create APPNAME ENV [addons...]' unless @app_name
+        raise ArgumentError, 'create expects an env name: noveku create APPNAME ENV [addons...]' unless @environment
+      end
     end
 
     # Execute the commands
