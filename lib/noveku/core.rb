@@ -77,25 +77,31 @@ module Noveku
 
     private
 
-    # Post treatment of arguments
+    # Post treatment of arguments in some cases
     def post_arguments_handling
       return unless environmentless_command?
-      case command
-      when 'create'
-        @app_name = arguments.shift
-        @environment = arguments.shift
 
-        raise ArgumentError, '`create` expects an app name: noveku create APPNAME ENV [addons...]' unless @app_name
-        raise ArgumentError, '`create` expects an env name: noveku create APPNAME ENV [addons...]' unless @environment
-      when 'clone'
-        @app_name = arguments.shift
-        @new_environment = arguments.shift
-        @environment = arguments.shift
+      send "#{command}_arguments_handling"
+    end
 
-        raise ArgumentError, '`clone` expects an app name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @app_name
-        raise ArgumentError, '`clone` expects a new env name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @new_environment
-        raise ArgumentError, '`clone` expects a base env name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @environment
-      end
+    # Arguments handling for `create` command
+    def create_arguments_handling
+      @app_name = arguments.shift
+      @environment = arguments.shift
+
+      raise ArgumentError, '`create` expects an app name: noveku create APPNAME ENV [addons...]' unless @app_name
+      raise ArgumentError, '`create` expects an env name: noveku create APPNAME ENV [addons...]' unless @environment
+    end
+
+    # Arguments handling for `clone` command
+    def clone_arguments_handling
+      @app_name = arguments.shift
+      @new_environment = arguments.shift
+      @environment = arguments.shift
+
+      raise ArgumentError, '`clone` expects an app name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @app_name
+      raise ArgumentError, '`clone` expects a new env name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @new_environment
+      raise ArgumentError, '`clone` expects a base env name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @environment
     end
 
     # Retrieve heroku object setup
