@@ -1,6 +1,7 @@
 require 'noveku/addon'
 require 'noveku/cli/git'
 require 'noveku/cli/heroku'
+require 'noveku/clone'
 require 'noveku/config'
 require 'noveku/console'
 require 'noveku/create'
@@ -28,6 +29,7 @@ module Noveku
     include Tail
     # Advanced Features
     include Addon
+    include Clone
     include Create
     include Deploy
     include Mongo
@@ -78,13 +80,21 @@ module Noveku
     # Post treatment of arguments
     def post_arguments_handling
       return unless environmentless_command?
-
-      if command == 'create'
+      case command
+      when 'create'
         @app_name = arguments.shift
         @environment = arguments.shift
 
-        raise ArgumentError, 'create expects an app name: noveku create APPNAME ENV [addons...]' unless @app_name
-        raise ArgumentError, 'create expects an env name: noveku create APPNAME ENV [addons...]' unless @environment
+        raise ArgumentError, '`create` expects an app name: noveku create APPNAME ENV [addons...]' unless @app_name
+        raise ArgumentError, '`create` expects an env name: noveku create APPNAME ENV [addons...]' unless @environment
+      when 'clone'
+        @app_name = arguments.shift
+        @new_environment = arguments.shift
+        @environment = arguments.shift
+
+        raise ArgumentError, '`clone` expects an app name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @app_name
+        raise ArgumentError, '`clone` expects a new env name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @new_environment
+        raise ArgumentError, '`clone` expects a base env name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @environment
       end
     end
 

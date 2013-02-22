@@ -15,7 +15,7 @@ module Noveku
 
     # Some commands do not require an environment supplied
     def environmentless_command?
-      @envless ||= (environment && environment == 'create')
+      @envless ||= (environment && ['create', 'clone'].include?(environment))
     end
 
     # Check if environment is present
