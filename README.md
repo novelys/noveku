@@ -1,39 +1,48 @@
 # Noveku
 
-A collection of aliases we use when interacting with heroku.
+A console utility easing up interactions with heroku when you have several heroku apps for one project (most common use case: production and staging environments for a webapp).
 This gem was inspired by [a collection of thoughtbot aliases](https://github.com/thoughtbot/dotfiles/commit/86494030441e88ef9c2e2ceaa00a4da82023e445).
 
 ## Prerequisites
 
-Ruby 1.9+ only. This gem depends on novelys/gomon. However, the presence of the command `heroku` (either via the gem, or the toolbelt) is assumed
+Ruby 1.9+ only. This gem depends on novelys/gomon. However, the presence of the commands `heroku` and `git` is assumed.
 
 ## Installation
 
-`gem install noveku`. Since it will not be part of your application, only of your workflow,
-you should install it globally, not via bundler and your project's Gemfile.
+`gem install noveku`
 
 ## Usage
 
-This gem is developed with Rails 3+ in mind. However, it should be suited to any project with a notion of "app environment", with different heroku apps for these environments.
+This gem is developed with Rails 3+ in mind. 
 
-`noveku production COMMAND` translate `COMMAND` in the context of the heroku remote `heroku-production`. When pushing/deploying, the local source branche is `production`. Please read the next two paragraphs for more detailed explications.
+However, it should be suited to any project with a notion of "app environment",
+with different heroku apps for these environments.
+It is assumed that your apps are using the cedar stack.
+While some commands might work for other stacks, this is purely coincidental.
+
+`noveku ENV COMMAND` means that `COMMAND` will be executed for the heroku app with the remote named `heroku-ENV`.
+In the case of the commands `push` and `deploy`, the local branch used as source is `ENV`.
+Please read the next two paragraphs for detailed explications.
 
 ### Conventions
 
 This gem makes a few assumptions about how your branches and remotes are named.
-This is *not* configurable, and that there is no plans to change this.
+This is *not* configurable, and there is no plans to change this.
 
-* `origin` is the main git remote, pointing towards github, bitbucket, or any other server.
+* `origin` is the main git remote, pointing towards GitHub, BitBucket, or any other server.
 * if you have a branch named `novelys`, the heroku git remote corresponding this branch is assumed to be `heroku-novelys`.
 
-Our git flow at Novelys is pretty straightforward : the branch `master` is the current version of the app; `staging` is the pre-production version; `production` the production one.
+Our git flow at Novelys is pretty straightforward :
+the branch `master` is the current version of the app;
+`staging` is the pre-production version;
+`production` the production one.
 
 This translates to two heroku apps (the name of the apps does not matter), and the remotes named `heroku-staging` and `heroku-master` :
 
     [remote "heroku-production"]
       url = git@heroku.com:sampleapp.git
       fetch = +refs/heads/*:refs/remotes/production/*
-    [remote "heroky-staging"]
+    [remote "heroku-staging"]
       url = git@heroku.com:sampleapp-preprod.git
       fetch = +refs/heads/*:refs/remotes/staging/*
 
@@ -43,31 +52,35 @@ Considering what is written above :
 
 `noveku ENV COMMAND`: will execute the given `COMMAND` in the context of the `ENV` local branch and `heroku-ENV` heroku git remote.
 
-## Heroku commands
+## Commands
+
+When giving a command that has no specific support, it will be proxied to `heroku` : `heroku ARGS --remote ENV`.  
+This makes several other commands available, such as `restart`, `releases`, `ps`, `open`...
+
+### Common options
+
+Exception made of mongodb related commands, they all accept the following options:
+
+* `--dry-run`: only prints the git command that is going to be executed, without executing it;
+* `--verbose`: prints the git command that is going to be executed, and then execute it.
+
+### Heroku 
 
 Supported commands and their equivalent : 
 
-* `rake` : `heroku run rake ARGS --remove ENV`
+* `rake ARGS` : `heroku run rake ARGS --remove ENV`
 * `console`: `heroku run console --remote ENV`
 * `migrate`: `heroku run rake db:migrate --remote ENV && heroku restart --remote ENV`
 * `tail`: `heroku logs --tail --remote ENV`
-
-When giving a command that is not specifically supported, it will be passed to `heroku` : `heroku ARGS --remote ENV`.  
-This makes several other commands available, such as `restart`, `releases`, `ps`, `open`...
-
-## Advanced commands
+* `create APP_NAME ENV [ADDONS...]`: creates `APP_NAME` bound to the remote `heroku-ENV`. Each listed addon will be added right away. If any part of the subcommand fails, the remaining will not be executed.
+* `clone APP_NAME NEW_ENV BASE_ENV [ADDONS...]`: creates APP_NAME bound to the remote `heroku-NEW_ENV`, and adds every addon from `BASE_ENV`.
 
 ### Git
 
 Those commands are shortcuts for other git commands.
 
-* `push`: Push your changes in your local branch to the `origin` remote.
-* `deploy`: Push your changes in your local branch to the heroku remote.
-
-They accept the following options:
-
-* `--dry-run`: only prints the git command that is going to be executed, without executing it;
-* `--verbose`: prints the git command that is going to be executed, and then execute it.
+* `push`: `git push origin ENV`, push your changes in your local branch to the `origin` remote.
+* `deploy`: `git push heroku-ENV ENV:master`, push your changes in your local branch to the heroku remote.
 
 ### MongoDB
 
@@ -81,7 +94,7 @@ Since the restoration of the database does not involve any interaction with hero
 
 ## What's next
 
-I plan on adding a command allowing you to create a heroku app, setup your addons, update your git config, create a local branch if needed.. all that in one step. We're still thinking about what the command api will look like. This will probably be the last feature before tagging 1.0.0.
+Better test coverage. This will be bumped to `1.0.0` once this is done and after using the gem in our daily flow for a few weeks.
 
 ## Contributions
 
@@ -92,6 +105,7 @@ I plan on adding a command allowing you to create a heroku app, setup your addon
 
 ## Changelog
 
+* `0.7`: Adds `create` and `clone`.
 * `0.6`: Adds `deploy` and `push`; assumes heroku remotes are prefixed with `heroku-`; enhanced README; internal refactoring.
 * `0.5`: Test coverage, check the presence of environment & that it matches a heroku app, that pwd is a heroku app, the presence of mongohq/lab uri.
 * `0.4`: Require `gomon` for mongodump, changed executable names, internal refactoring.
