@@ -1,7 +1,6 @@
 require 'noveku/addon'
 require 'noveku/cli/git'
 require 'noveku/cli/heroku'
-require 'noveku/clone'
 require 'noveku/config'
 require 'noveku/console'
 require 'noveku/create'
@@ -29,7 +28,6 @@ module Noveku
     include Tail
     # Advanced Features
     include Addon
-    include Clone
     include Create
     include Deploy
     include Mongo
@@ -91,17 +89,6 @@ module Noveku
 
       raise ArgumentError, '`create` expects an app name: noveku create APPNAME ENV [addons...]' unless @app_name
       raise ArgumentError, '`create` expects an env name: noveku create APPNAME ENV [addons...]' unless @environment
-    end
-
-    # Arguments handling for `clone` command
-    def clone_arguments_handling
-      @app_name = arguments.shift
-      @new_environment = arguments.shift
-      @environment = arguments.shift
-
-      raise ArgumentError, '`clone` expects an app name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @app_name
-      raise ArgumentError, '`clone` expects a new env name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @new_environment
-      raise ArgumentError, '`clone` expects a base env name: noveku clone APPNAME NEW_ENV BASE_ENV' unless @environment
     end
 
     # Retrieve heroku object setup

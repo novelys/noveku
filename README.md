@@ -13,7 +13,7 @@ Ruby 1.9+ only. This gem depends on novelys/gomon. However, the presence of the 
 
 ## Usage
 
-This gem is developed with Rails 3+ in mind. 
+This gem is developed with Rails 3+ in mind.
 
 However, it should be suited to any project with a notion of "app environment",
 with different heroku apps for these environments.
@@ -64,16 +64,15 @@ Exception made of mongodb related commands, they all accept the following option
 * `--dry-run`: only prints the git command that is going to be executed, without executing it;
 * `--verbose`: prints the git command that is going to be executed, and then execute it.
 
-### Heroku 
+### Heroku
 
-Supported commands and their equivalent : 
+Supported commands and their equivalent :
 
 * `rake ARGS` : `heroku run rake ARGS --remove ENV`
 * `console`: `heroku run console --remote ENV`
 * `migrate`: `heroku run rake db:migrate --remote ENV && heroku restart --remote ENV`
 * `tail`: `heroku logs --tail --remote ENV`
 * `create APP_NAME ENV [ADDONS...]`: creates `APP_NAME` bound to the remote `heroku-ENV`. Each listed addon will be added right away. If any part of the subcommand fails, the remaining will not be executed.
-* `clone APP_NAME NEW_ENV BASE_ENV [ADDONS...]`: creates APP_NAME bound to the remote `heroku-NEW_ENV`, and adds every addon from `BASE_ENV`.
 
 ### Git
 
@@ -105,6 +104,7 @@ Better test coverage. This will be bumped to `1.0.0` once this is done and after
 
 ## Changelog
 
+* `0.8`: Removes `clone` (duplicate of `heroku fork`)
 * `0.7`: Adds `create` and `clone`.
 * `0.6`: Adds `deploy` and `push`; assumes heroku remotes are prefixed with `heroku-`; enhanced README; internal refactoring.
 * `0.5`: Test coverage, check the presence of environment & that it matches a heroku app, that pwd is a heroku app, the presence of mongohq/lab uri.
